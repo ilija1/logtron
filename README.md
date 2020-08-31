@@ -35,8 +35,10 @@ Logtron will default to a console JSON log formatter that is compatible with pop
 [![Downloads](https://pepy.tech/badge/logtron/month)](https://pepy.tech/project/logtron/month)
 [![Supported Versions](https://img.shields.io/pypi/pyversions/logtron.svg)](https://pypi.org/project/logtron)
 [![Contributors](https://img.shields.io/github/contributors/ilija1/logtron.svg)](https://github.com/ilija1/logtron/graphs/contributors)
+
 [![Build Status](https://travis-ci.org/ilija1/logtron.svg?branch=master)](https://travis-ci.org/ilija1/logtron)
 [![codecov](https://codecov.io/gh/ilija1/logtron/branch/master/graph/badge.svg)](https://codecov.io/gh/ilija1/logtron)
+[![Documentation Status](https://readthedocs.org/projects/logtron/badge/?version=latest)](https://logtron.readthedocs.io/en/latest/?badge=latest)
 
 ## Installing Logtron and Supported Versions
 
