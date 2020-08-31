@@ -1,0 +1,5 @@
+handlers:
+  - logtron.handlers.ConsoleHandler
+
+logtron.handlers.ConsoleHandler:
+  test_setting: 14
