@@ -13,26 +13,24 @@ stages:
   - name: deploy
     if: tag IS present
 
+before_install:
+  - pip install --upgrade pip
+  - pip install poetry
+install:
+  - poetry install --no-root -v
+script:
+  - make ci
+  - make cover
+  - bash <(curl -s https://codecov.io/bash)
+
 jobs:
   include:
-    - stage: test
-      before_install:
-        - pip install --upgrade pip
-        - pip install poetry
-      install:
-        - poetry install --no-root -v
-      script:
-        - make ci
-        - make cover
-        - bash <(curl -s https://codecov.io/bash)
     - stage: deploy
-      before_install:
-        - pip install --upgrade pip
-        - pip install poetry
-      install:
-        - poetry install
-      script: skip
+      os: linux
+      language: python
+      dist: xenial
       python: "3.8"
+      script: skip
       before_deploy:
         - poetry config http-basic.pypi __token__ $PYPI_PASSWORD
       deploy:
