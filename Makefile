@@ -14,7 +14,3 @@ ci: clean
 .PHONY: cover
 cover: clean
 	poetry run pytest --cov-config .coveragerc --verbose --cov-report term --cov-report xml --cov=logtron tests
-
-.PHONY: docs
-docs:
-	cd docs && make html
