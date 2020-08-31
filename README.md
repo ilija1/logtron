@@ -3,20 +3,29 @@
 **Logtron** is a simple logging library with JSON log formatting.
 
 ```python
-import logtron
-logger = logtron.autodiscover()
-logger.info("hello world")
+>>> import logtron
+>>> logger = logtron.autodiscover()
+>>> logger.info("hello world")
+{"timestamp": 1598900664859, "message": "hello world", "name": "root", "level": 20, "context": {}, "extra": {}}
+>>> logger.info("extra args", extra={"foo": "bar", "count": 7})
+{"timestamp": 1598900667704, "message": "extra args", "name": "root", "level": 20, "context": {}, "extra": {"foo": "bar", "count": 7}}
+>>>
 ```
 
 Or
 
 ```python
-import logtron
-logtron.autodiscover() # Only needs to run once somewhere to configure the root logger
-
-import logging
-logger = logging.getLogger()
-logger.info("hello world")
+>>> import logtron
+>>> logtron.autodiscover() # Only needs to run once somewhere to configure the root logger
+<RootLogger root (INFO)>
+>>>
+>>> import logging
+>>> logger = logging.getLogger()
+>>> logger.info("hello world")
+{"timestamp": 1598900735699, "message": "hello world", "name": "root", "level": 20, "context": {}, "extra": {}}
+>>> logger.info("extra args", extra={"foo": "bar", "count": 7})
+{"timestamp": 1598900757238, "message": "extra args", "name": "root", "level": 20, "context": {}, "extra": {"foo": "bar", "count": 7}}
+>>>
 ```
 
 Logtron allows you to skip all the usual boilerplate when configuring python logging.
