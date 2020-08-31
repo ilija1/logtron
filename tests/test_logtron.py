@@ -6,19 +6,19 @@ from logtron.config import discover_config
 
 def test_autodiscover():
     logger = autodiscover(refresh=True)
-    logger.info("hello")
+    logger.info("test_autodiscover")
 
 
 def test_autodiscover_existing():
     logger = autodiscover()
-    logger.info("hello")
+    logger.info("test_autodiscover_existing1")
     logger = autodiscover()
-    logger.info("world")
+    logger.info("test_autodiscover_existing2")
 
 
 def test_autodiscover_named():
     logger = autodiscover("name1", refresh=True)
-    logger.info("hello")
+    logger.info("test_autodiscover_named")
 
 
 def test_exception():
@@ -26,7 +26,7 @@ def test_exception():
     try:
         raise Exception("test exception")
     except Exception:
-        logger.info("error", extra={"foo": 123}, exc_info=True)
+        logger.info("test_exception", extra={"foo": 123}, exc_info=True)
 
 
 def test_config():

@@ -17,6 +17,8 @@ def autodiscover(name=None, level=logging.INFO, config=None, refresh=False, disc
 
     root_logger = logging.getLogger()
     root_logger.setLevel(level)
+    existing_handlers = root_logger.handlers
+    [root_logger.removeHandler(i) for i in existing_handlers]
 
     context = {}
     if "context" in config:
