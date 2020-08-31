@@ -31,10 +31,8 @@ jobs:
       dist: xenial
       python: "3.8"
       script: skip
-      # before_deploy:
-      #   - poetry config http-basic.pypi __token__ $PYPI_PASSWORD
       deploy:
         provider: script
-        script: poetry publish --build
+        script: poetry publish -u __token__ -p $PYPI_PASSWORD -n --build
         on:
           tags: true
