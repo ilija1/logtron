@@ -16,27 +16,23 @@ stages:
 before_install:
   - pip install --upgrade pip
   - pip install poetry
-
 install:
   - poetry install --no-root -v
-
-script: make ci
+script:
+  - make ci
+  - make cover
+  - bash <(curl -s https://codecov.io/bash)
 
 jobs:
   include:
     - stage: deploy
-      script: skip
+      os: linux
+      language: python
+      dist: xenial
       python: "3.8"
-      before_deploy:
-        - pip install --upgrade pip
-        - pip install poetry
-        - poetry config pypi-token.pypi $PYPI_PASSWORD
+      script: skip
       deploy:
         provider: script
-        script: poetry publish --build
+        script: poetry publish -u __token__ -p $PYPI_PASSWORD -n --build
         on:
           tags: true
-
-after_success:
-  - make cover
-  - bash <(curl -s https://codecov.io/bash)
