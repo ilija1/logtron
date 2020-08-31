@@ -1,7 +1,7 @@
 .PHONY: clean
 clean:
 	@find . | grep -E "(__pycache__|\.pyc|\.pyo$$)" | xargs rm -rf
-	@rm -rf .pytest_cache *.egg-info .coverage coverage.xml report.xml junit htmlcov dist
+	@rm -rf .pytest_cache *.egg-info .coverage coverage.xml report.xml junit htmlcov dist docs/_build
 
 .PHONY: test
 test: clean
