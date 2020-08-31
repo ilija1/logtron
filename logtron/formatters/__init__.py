@@ -1,1 +1,1 @@
-from logtron.formatters.json import JsonFormatter
+from logtron.formatters.json_formatter import JsonFormatter
