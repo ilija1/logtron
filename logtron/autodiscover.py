@@ -7,6 +7,23 @@ from logtron.formatters import JsonFormatter
 is_configured = False
 
 
+def __get_handlers(config, context):
+    handlers = [(i,) + tuple(i.rsplit(".", 1)) for i in config["handlers"]]
+    classes = [i[2] for i in handlers]
+
+    for handler, module_name, class_name in handlers:
+        HandlerClass = getattr(importlib.import_module(module_name), class_name)
+        instance = None
+        if config.get(handler) is not None:
+            instance = HandlerClass(context, **config[handler])
+        elif classes.count(class_name) == 1 and config.get(class_name) is not None:
+            instance = HandlerClass(context, **config[class_name])
+        else:
+            instance = HandlerClass(context)
+        instance.setFormatter(JsonFormatter(context))
+        yield instance
+
+
 def autodiscover(name=None, level=logging.INFO, **kwargs):
     global is_configured
 
@@ -28,20 +45,9 @@ def autodiscover(name=None, level=logging.INFO, **kwargs):
     if discover_context is not None:
         context = discover_context()
 
-    handlers = [(i,) + tuple(i.rsplit(".", 1)) for i in config["handlers"]]
-    classes = [i[2] for i in handlers]
-
-    for handler, module_name, class_name in handlers:
-        HandlerClass = getattr(importlib.import_module(module_name), class_name)
-        instance = None
-        if config.get(handler) is not None:
-            instance = HandlerClass(context, **config[handler])
-        elif classes.count(class_name) == 1 and config.get(class_name) is not None:
-            instance = HandlerClass(context, **config[class_name])
-        else:
-            instance = HandlerClass(context)
-        instance.setFormatter(JsonFormatter(context))
-        root_logger.addHandler(instance)
+    handlers = __get_handlers(config, context)
+    for i in handlers:
+        root_logger.addHandler(i)
 
     is_configured = True
 
