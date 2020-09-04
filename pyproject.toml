@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "logtron"
-version = "0.1.7"
+version = "0.1.8"
 description = "A simple logging library with JSON log formatting"
 authors = ["Ilija Stevcev <ilija1@gmail.com>"]
 license = "Apache-2.0"
