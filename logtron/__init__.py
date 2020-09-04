@@ -4,4 +4,4 @@ from logtron.autodiscover import autodiscover
 try:
     __version__ = version(__package__)
 except:
-    pass
+    __version__ = "unspecified"
