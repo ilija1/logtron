@@ -34,6 +34,16 @@ def test_config():
     assert config["logtron.handlers.ConsoleHandler"]["test_setting"] == 14
 
 
+def test_handler_config_short_name():
+    logger = autodiscover(refresh=True, config={"ConsoleHandler": {}})
+    assert logger is not None
+
+
+def test_handler_config_full_name():
+    logger = autodiscover(refresh=True, config={"logtron.handlers.ConsoleHandler": {}})
+    assert logger is not None
+
+
 def test_parse_env():
     os.environ["LOGTRON_TEST_VAR"] = "1,2,3.4"
     config = discover_config()
