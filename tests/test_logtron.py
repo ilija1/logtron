@@ -48,3 +48,4 @@ def test_discover_context():
 def test_config_context():
     logger = autodiscover(refresh=True, config={"context": {"foo": "bar"}})
     assert logger is not None
+    logger.info("test_config_context")
