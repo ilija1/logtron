@@ -26,12 +26,16 @@ def autodiscover(name=None, level=logging.INFO, config=None, refresh=False, disc
     elif discover_context is not None:
         context = discover_context()
 
-    for i in config["handlers"]:
-        module_name, class_name = i.rsplit(".", 1)
+    handlers = [(i,) + tuple(i.rsplit(".", 1)) for i in config["handlers"]]
+    classes = [i[2] for i in handlers]
+
+    for handler, module_name, class_name in handlers:
         HandlerClass = getattr(importlib.import_module(module_name), class_name)
         instance = None
-        if i in config and config[i] is not None:
-            instance = HandlerClass(context, **config[i])
+        if handler in config and config[handler] is not None:
+            instance = HandlerClass(context, **config[handler])
+        elif classes.count(class_name) == 1 and (class_name in config and config[class_name] is not None):
+            instance = HandlerClass(context, **config[class_name])
         else:
             instance = HandlerClass(context)
         instance.setFormatter(JsonFormatter(context))
