@@ -1,5 +1,6 @@
 import importlib
 import logging
+from copy import deepcopy
 
 from logtron.config import discover_config as discover_config_base
 from logtron.formatters import JsonFormatter
@@ -9,6 +10,7 @@ is_configured = False
 
 
 def __get_handlers(config, formatter):
+    config = deepcopy({k.lower(): v for k, v in config.items()})
     handlers = [(i,) + tuple(i.rsplit(".", 1)) for i in config["handlers"]]
     classes = [i[2] for i in handlers]
 
@@ -32,21 +34,19 @@ def autodiscover(name=None, level=logging.INFO, **kwargs):
     if not refresh and is_configured:
         return logging.getLogger(name)
 
-    config = kwargs.get("config")
-
-    discover_config = kwargs.get("discover_config", discover_config_base)
-    config = discover_config(config)
-
     root_logger = logging.getLogger()
     root_logger.setLevel(level)
     existing_handlers = root_logger.handlers
     [root_logger.removeHandler(i) for i in existing_handlers]
 
-    config = {k.lower(): v for k, v in config.items()}
+    discover_config = kwargs.get("discover_config", discover_config_base)
+    config = discover_config(kwargs.get("config"))
 
-    discover_context = kwargs.get("discover_context", lambda: config.get("context", {}))
-    flatten = kwargs.get("flatten", False)
-    formatter = JsonFormatter(discover_context=discover_context, flatten=flatten)
+    context = deepcopy(config.get("context", {}))
+    formatter = JsonFormatter(
+        discover_context=kwargs.get("discover_context", lambda: context),
+        flatten=kwargs.get("flatten", False),
+    )
     handlers = __get_handlers(config, formatter)
     for i in handlers:
         root_logger.addHandler(i)

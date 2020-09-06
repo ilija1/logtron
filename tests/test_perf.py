@@ -20,8 +20,10 @@ def test_iterations():
     for i in range(0, iterations):
         logger.info("hello world", extra={"i": i})
     delta_sec = measure_clock() - start
+    delta_ms = delta_sec * 1000
 
-    print("time for {:,} iterations: {:,.2f} ms".format(iterations, delta_sec * 1000))
+    print("time for {:,} iterations: {:,.2f} ms".format(iterations, delta_ms))
+    print("time for one log event: {:.2f} ns".format(1000000 * delta_ms / iterations))
     print("{:,.0f} logs / sec".format(iterations / delta_sec))
 
     assert delta_sec < 1

@@ -89,6 +89,6 @@ def test_reserved_key():
 
 
 def test_flatten():
-    logger = autodiscover(refresh=True, flatten=True)
+    logger = autodiscover(refresh=True, config={"context": {"xyz": "abc"}}, flatten=True)
     assert logger is not None
     logger.info("test_flatten", extra={"foo": {"bar": "baz"}})
