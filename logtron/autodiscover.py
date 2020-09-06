@@ -8,19 +8,19 @@ from logtron.util import flatten_dict
 is_configured = False
 
 
-def __get_handlers(config, context, formatter):
+def __get_handlers(config, formatter):
     handlers = [(i,) + tuple(i.rsplit(".", 1)) for i in config["handlers"]]
     classes = [i[2] for i in handlers]
 
     for handler, module_name, class_name in handlers:
         HandlerClass = getattr(importlib.import_module(module_name), class_name)
         instance = None
+        args = {}
         if config.get(handler.lower()) is not None:
-            instance = HandlerClass(context, **config[handler.lower()])
-        elif classes.count(class_name) == 1 and config.get(class_name.lower()) is not None:
-            instance = HandlerClass(context, **config[class_name.lower()])
-        else:
-            instance = HandlerClass(context)
+            args.update(config[handler.lower()])
+        if classes.count(class_name) == 1 and config.get(class_name.lower()) is not None:
+            args.update(config[class_name.lower()])
+        instance = HandlerClass(**args)
         instance.setFormatter(formatter)
         yield instance
 
@@ -33,10 +33,8 @@ def autodiscover(name=None, level=logging.INFO, **kwargs):
         return logging.getLogger(name)
 
     config = kwargs.get("config")
-    discover_context = kwargs.get("discover_context")
-    discover_config = kwargs.get("discover_config", discover_config_base)
-    flatten = kwargs.get("flatten", True)
 
+    discover_config = kwargs.get("discover_config", discover_config_base)
     config = discover_config(config)
 
     root_logger = logging.getLogger()
@@ -46,13 +44,10 @@ def autodiscover(name=None, level=logging.INFO, **kwargs):
 
     config = {k.lower(): v for k, v in config.items()}
 
-    context = {}
-    if discover_context is not None:
-        context.update(discover_context())
-    context.update(config.get("context", {}))
-
-    formatter = JsonFormatter(context=context, flatten=flatten)
-    handlers = __get_handlers(config, context, formatter)
+    discover_context = kwargs.get("discover_context", lambda: config.get("context", {}))
+    flatten = kwargs.get("flatten", False)
+    formatter = JsonFormatter(discover_context=discover_context, flatten=flatten)
+    handlers = __get_handlers(config, formatter)
     for i in handlers:
         root_logger.addHandler(i)
 

@@ -12,9 +12,7 @@ class JsonFormatter(Formatter):
             k for k, v in LogRecord(None, None, None, None, None, None, None).__dict__.items()
         ]
         self.flatten = kwargs.get("flatten", False)
-        self.context = kwargs.get("context", {})
-        if self.flatten:
-            self.context = flatten_dict(self.context, "context")
+        self.discover_context = kwargs.get("discover_context", lambda: {})
 
     def format(self, record):
         data = {
@@ -30,13 +28,13 @@ class JsonFormatter(Formatter):
         if self.flatten:
             items = {
                 k: v
-                for d in [record.__dict__, self.context]
+                for d in [record.__dict__, self.discover_context()]
                 for k, v in d.items()
                 if k not in self.reserved and k not in data
             }
             data.update(flatten_dict(items))
         else:
             items = {k: v for k, v in record.__dict__.items() if k not in self.reserved and k not in data}
-            data.update({"extra": items, "context": self.context})
+            data.update({"extra": items, "context": self.discover_context()})
 
         return json.dumps(data)

@@ -86,3 +86,9 @@ def test_reserved_key():
     logger = autodiscover(refresh=True)
     assert logger is not None
     logger.info("test_reserved_key", extra={"level": "bobo"})
+
+
+def test_flatten():
+    logger = autodiscover(refresh=True, flatten=True)
+    assert logger is not None
+    logger.info("test_flatten", extra={"foo": {"bar": "baz"}})
