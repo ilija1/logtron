@@ -3,3 +3,5 @@ handlers:
 
 logtron.handlers.ConsoleHandler:
   test_setting: 14
+  test_float: 13.33
+  test_str: foo
