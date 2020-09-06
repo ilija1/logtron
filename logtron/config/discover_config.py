@@ -1,4 +1,5 @@
 import os
+from copy import deepcopy
 
 import yaml
 
@@ -21,7 +22,7 @@ def read_config_file(path):
 
 
 def discover_config(existing=None):
-    config = DEFAULT_CONFIG.copy()
+    config = deepcopy(DEFAULT_CONFIG)
     if existing is None:
         existing = {}
 
@@ -35,6 +36,6 @@ def discover_config(existing=None):
     if isinstance(existing, str):
         config.update(read_config_file(existing))
     else:
-        config.update(existing)
+        config.update(deepcopy(existing))
 
     return config

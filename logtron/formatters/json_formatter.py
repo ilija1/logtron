@@ -28,7 +28,7 @@ class JsonFormatter(Formatter):
         if self.flatten:
             items = {
                 k: v
-                for d in [record.__dict__, self.discover_context()]
+                for d in [record.__dict__, flatten_dict(self.discover_context(), "context")]
                 for k, v in d.items()
                 if k not in self.reserved and k not in data
             }
