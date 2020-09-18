@@ -10,7 +10,8 @@ is_configured = False
 
 
 def __get_handlers(config, formatter):
-    config = deepcopy({k.lower(): v for k, v in config.items()})
+    config = {k.lower(): v for k, v in config.items()}
+
     handlers = [(i,) + tuple(i.rsplit(".", 1)) for i in config["handlers"]]
     classes = [i[2] for i in handlers]
 
