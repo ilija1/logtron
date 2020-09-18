@@ -1,6 +1,5 @@
 import importlib
 import logging
-from copy import deepcopy
 
 from logtron.config import discover_config as discover_config_base
 from logtron.formatters import JsonFormatter
@@ -43,7 +42,7 @@ def autodiscover(name=None, level=logging.INFO, **kwargs):
     discover_config = kwargs.get("discover_config", discover_config_base)
     config = discover_config(kwargs.get("config"))
 
-    context = deepcopy(config.get("context", {}))
+    context = config.get("context", {})
     formatter = JsonFormatter(
         discover_context=kwargs.get("discover_context", lambda: context),
         flatten=kwargs.get("flatten", False),

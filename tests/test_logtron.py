@@ -39,13 +39,6 @@ def test_config():
     assert config["logtron.handlers.ConsoleHandler"]["test_setting"] == 14
 
 
-def test_config_no_deepcopy():
-    config = discover_config("tests/resources/test.yaml")
-    config["use_deepcopy"] = False
-    config = discover_config(config)
-    assert config["logtron.handlers.ConsoleHandler"]["test_setting"] == 14
-
-
 def test_handler_config_short_name():
     logger = autodiscover(refresh=True, config={"ConsoleHandler": {}})
     assert logger is not None
