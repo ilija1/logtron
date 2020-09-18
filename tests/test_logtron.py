@@ -1,6 +1,6 @@
 import os
 
-from logtron import autodiscover
+from logtron import autodiscover, flush
 from logtron.config import discover_config
 
 
@@ -92,3 +92,10 @@ def test_flatten():
     logger = autodiscover(refresh=True, config={"context": {"xyz": "abc"}}, flatten=True)
     assert logger is not None
     logger.info("test_flatten", extra={"foo": {"bar": "baz"}})
+
+
+def test_flush():
+    logger = autodiscover(refresh=True, config={"context": {"xyz": "abc"}})
+    assert logger is not None
+    logger.info("test_flush", extra={"foo": {"bar": "baz"}})
+    flush()
