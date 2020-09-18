@@ -36,6 +36,10 @@ def discover_config(existing=None):
     if isinstance(existing, str):
         config.update(read_config_file(existing))
     else:
-        config.update(deepcopy(existing))
+        use_deepcopy = existing.get("use_deepcopy", True)
+        if use_deepcopy:
+            config.update(deepcopy(existing))
+        else:
+            config.update(existing)
 
     return config
