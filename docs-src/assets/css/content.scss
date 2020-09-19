@@ -1,0 +1,12 @@
+$turquoise: #000;
+$primary: #000000;
+$secondary: #000000;
+
+@import '~bulma/sass/utilities/_all';
+@import '~bulma';
+@import '~buefy/src/scss/buefy';
+
+.nuxt-content h1 {
+  @extend .title;
+  @extend .is-4;
+}
