@@ -3,7 +3,7 @@ from copy import deepcopy
 
 import yaml
 
-from logtron.util import parse_env
+from logtron.util import merge, parse_env
 
 ENV_PREFIX = "LOGTRON_"
 DEFAULT_CONFIG_FILE = "logtron.yaml"
@@ -27,15 +27,15 @@ def discover_config(existing=None):
         existing = {}
 
     # Read default config file
-    config.update(read_config_file(DEFAULT_CONFIG_FILE))
+    merge(config, read_config_file(DEFAULT_CONFIG_FILE))
 
     # Read env vars
-    config.update(parse_env(ENV_PREFIX))
+    merge(config, parse_env(ENV_PREFIX))
 
     # Read explicit config
     if isinstance(existing, str):
-        config.update(read_config_file(existing))
+        merge(config, read_config_file(existing))
     else:
-        config.update(existing)
+        merge(config, existing)
 
     return config

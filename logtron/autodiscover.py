@@ -3,7 +3,7 @@ import logging
 
 from logtron.config import discover_config as discover_config_base
 from logtron.formatters import JsonFormatter
-from logtron.util import flatten_dict
+from logtron.util import flatten_dict, merge
 
 is_configured = False
 
@@ -19,9 +19,9 @@ def __get_handlers(config, formatter):
         instance = None
         args = {}
         if config.get(handler.lower()) is not None:
-            args.update(config[handler.lower()])
+            merge(args, config[handler.lower()])
         if classes.count(class_name) == 1 and config.get(class_name.lower()) is not None:
-            args.update(config[class_name.lower()])
+            merge(args, config[class_name.lower()])
         instance = HandlerClass(**args)
         instance.setFormatter(formatter)
         yield instance
