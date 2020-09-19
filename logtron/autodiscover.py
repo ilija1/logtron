@@ -34,10 +34,10 @@ def autodiscover(name=None, level=logging.INFO, **kwargs):
     if not refresh and is_configured:
         return logging.getLogger(name)
 
-    root_logger = logging.getLogger()
-    root_logger.setLevel(level)
-    existing_handlers = root_logger.handlers
-    [root_logger.removeHandler(i) for i in existing_handlers]
+    logger = logging.getLogger(name)
+    logger.setLevel(level)
+    while len(logger.handlers) > 0:
+        logger.removeHandler(logger.handlers[0])
 
     discover_config = kwargs.get("discover_config", discover_config_base)
     config = discover_config(kwargs.get("config"))
@@ -49,8 +49,8 @@ def autodiscover(name=None, level=logging.INFO, **kwargs):
     )
     handlers = __get_handlers(config, formatter)
     for i in handlers:
-        root_logger.addHandler(i)
+        logger.addHandler(i)
 
     is_configured = True
 
-    return logging.getLogger(name)
+    return logger
