@@ -1,5 +1,7 @@
 import os
 
+from logtron.util.merge_dict import merge
+
 
 def _parse_value(value):
     if isinstance(value, list):
@@ -36,6 +38,7 @@ def parse_env(prefix=None, env=os.environ):
     env_config_parsed = {}
     for k, v in env_config.items():
         nested = _parse_nested_env(k, v)
-        env_config_parsed.update(nested)
+        # env_config_parsed.update(nested)
+        merge(env_config_parsed, nested)
 
     return env_config_parsed

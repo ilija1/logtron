@@ -1,6 +1,6 @@
 import os
 
-from logtron.util import flatten_dict, parse_env
+from logtron.util import flatten_dict, merge, parse_env
 
 
 def test_parse_env():
@@ -17,3 +17,18 @@ def test_flatten_dict():
     }
     flat = flatten_dict(d, "context")
     assert flat["context_a_b_c"] == 1234
+
+
+def test_merge_dict():
+    a = {
+        "a": {"b": {"c": 1234}},
+        "foo": "bar",
+    }
+
+    b = {"a": {"b": {"c": 123, "d": "hi"}}}
+    result = merge(a, b)
+    assert result["a"]["b"]["d"] == "hi"
+    assert result["a"]["b"]["c"] == 123
+
+    assert a["a"]["b"]["d"] == "hi"
+    assert a["a"]["b"]["c"] == 123

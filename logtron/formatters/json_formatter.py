@@ -2,7 +2,7 @@ import json
 import traceback
 from logging import Formatter, LogRecord
 
-from logtron.util import flatten_dict
+from logtron.util import flatten_dict, merge
 
 
 class JsonFormatter(Formatter):
@@ -32,9 +32,9 @@ class JsonFormatter(Formatter):
                 for k, v in d.items()
                 if k not in self.reserved and k not in data
             }
-            data.update(flatten_dict(items))
+            merge(data, flatten_dict(items))
         else:
             items = {k: v for k, v in record.__dict__.items() if k not in self.reserved and k not in data}
-            data.update({"extra": items, "context": self.discover_context()})
+            merge(data, {"extra": items, "context": self.discover_context()})
 
         return json.dumps(data)
