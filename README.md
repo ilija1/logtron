@@ -7,7 +7,7 @@
 
 [![Build](https://img.shields.io/travis/ilija1/logtron?logo=travis&style=flat)](https://travis-ci.org/ilija1/logtron)
 [![Coverage](https://img.shields.io/codecov/c/gh/ilija1/logtron?logo=codecov&style=flat)](https://codecov.io/gh/ilija1/logtron)
-[![Documentation](https://img.shields.io/readthedocs/logtron?logo=read-the-docs&style=flat)](https://logtron.readthedocs.io/en/latest)
+[![Documentation](https://badgen.net/badge/documentation/gh-pages/green)](https://ilija1.github.io/logtron)
 [![Maintainability](https://img.shields.io/codeclimate/maintainability/ilija1/logtron?logo=code-climate&style=flat)](https://codeclimate.com/github/ilija1/logtron/maintainability)
 [![Tech Debt](https://img.shields.io/codeclimate/tech-debt/ilija1/logtron?logo=code-climate&style=flat)](https://codeclimate.com/github/ilija1/logtron/issues)
 [![Issues](https://img.shields.io/codeclimate/issues/ilija1/logtron?logo=code-climate&style=flat)](https://codeclimate.com/github/ilija1/logtron/issues)
