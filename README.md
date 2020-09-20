@@ -53,3 +53,5 @@ $ python -m pip install logtron
 ```
 
 Logtron officially supports Python 2.7 & 3.5+.
+
+## For more info, check out the [documentation](https://ilija1.github.io/logtron/).

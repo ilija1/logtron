@@ -17,7 +17,7 @@ export default {
       {
         rel: 'stylesheet',
         href:
-          '//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/agate.min.css',
+          '//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/tomorrow-night.min.css',
       },
     ],
   },
@@ -68,4 +68,8 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},
+
+  router: {
+    base: '/logtron/',
+  },
 }

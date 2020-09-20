@@ -33,6 +33,14 @@
             </li>
           </ul>
         </template>
+        <p class="menu-label is-hidden-touch">Source Code</p>
+        <ul class="menu-list">
+          <li>
+            <a href="https://github.com/ilija1/logtron" target="_blank">
+              <b-icon icon="github" /> Github
+            </a>
+          </li>
+        </ul>
       </aside>
 
       <div class="container column is-10">
