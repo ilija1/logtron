@@ -3,7 +3,7 @@
 [![Release](https://img.shields.io/pypi/v/logtron?logo=python&style=flat)](https://pypi.org/project/logtron)
 [![Downloads](https://img.shields.io/pypi/dm/logtron?logo=python&style=flat)](https://pypi.org/project/logtron)
 [![Supported Versions](https://img.shields.io/pypi/pyversions/logtron.svg?logo=python&style=flat)](https://pypi.org/project/logtron)
-[![License](https://img.shields.io/github/license/ilija1/logtron?logo=apache&style=flat)](LICENSE)
+[![License](https://img.shields.io/github/license/ilija1/logtron?logo=apache&style=flat)](https://raw.githubusercontent.com/ilija1/logtron/master/LICENSE)
 
 [![Build](https://img.shields.io/travis/ilija1/logtron?logo=travis&style=flat)](https://travis-ci.org/ilija1/logtron)
 [![Coverage](https://img.shields.io/codecov/c/gh/ilija1/logtron?logo=codecov&style=flat)](https://codecov.io/gh/ilija1/logtron)

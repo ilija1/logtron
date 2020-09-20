@@ -18,14 +18,21 @@
 
     <section class="main-content columns">
       <aside class="column is-2 section">
-        <p class="menu-label is-hidden-touch">General</p>
-        <ul class="menu-list">
-          <li v-for="(item, key) of items" :key="key">
-            <nuxt-link :to="item.to" exact-active-class="is-active">
-              <b-icon :icon="item.icon" /> {{ item.title }}
-            </nuxt-link>
-          </li>
-        </ul>
+        <template v-for="(section, section_key) of sections">
+          <p :key="section_key" class="menu-label is-hidden-touch">
+            {{ section.name }}
+          </p>
+          <ul :key="section_key" class="menu-list">
+            <li
+              v-for="(item, key) of section.items"
+              :key="`${section_key}_${key}`"
+            >
+              <nuxt-link :to="item.to" exact-active-class="is-active">
+                <b-icon :icon="item.icon" /> {{ item.title }}
+              </nuxt-link>
+            </li>
+          </ul>
+        </template>
       </aside>
 
       <div class="container column is-10">
@@ -39,16 +46,36 @@
 export default {
   data() {
     return {
-      items: [
+      sections: [
         {
-          title: 'Home',
-          icon: 'home',
-          to: { name: 'index' },
+          name: 'General',
+          items: [
+            {
+              title: 'Home',
+              icon: 'home',
+              to: { name: 'index' },
+            },
+            {
+              title: 'Getting Started',
+              icon: 'school',
+              to: { name: 'content-slug', params: { slug: 'getting-started' } },
+            },
+          ],
         },
         {
-          title: 'Inspire',
-          icon: 'lightbulb',
-          to: { name: 'inspire' },
+          name: 'Reference',
+          items: [
+            {
+              title: 'API Reference',
+              icon: 'book-open-outline',
+              to: { name: 'content-slug', params: { slug: 'api-reference' } },
+            },
+            {
+              title: 'Configuration',
+              icon: 'tools',
+              to: { name: 'content-slug', params: { slug: 'configuration' } },
+            },
+          ],
         },
       ],
     }

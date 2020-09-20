@@ -1,6 +1,7 @@
 <template>
   <section class="section">
     <article>
+      <h1 class="title">{{ page.title }}</h1>
       <nuxt-content :document="page" />
     </article>
     <hr />
@@ -12,8 +13,8 @@
 
 <script>
 export default {
-  async asyncData({ $content }) {
-    const page = await $content('home').fetch()
+  async asyncData({ $content, params }) {
+    const page = await $content(params.slug).fetch()
 
     return {
       page,
